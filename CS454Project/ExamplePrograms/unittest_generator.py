@@ -33,7 +33,7 @@ def _func_writer(code, input, filename, funcname, indent, i):
 
 
 def _class_writer(code, inputs, filename, funcname):
-    code.write("class Test(Testcase):\n")
+    code.write("class Test(TestCase):\n")
     for i in range(len(inputs)):
         _func_writer(code, inputs[i], filename, funcname, 1, i+1)
 
@@ -45,7 +45,7 @@ def unittest_writer(code, inputs, filename, funcname):
 def unittest_generator(filename, funcname, inputs):
     # filename, funcname, inputs = 'calculator', 'mul', [(1,2), (3,4)]
     
-    code = open('unittest.py', 'w')
+    code = open('test_calculator2.py', 'w')
     import_writer(code, filename, funcname)
     unittest_writer(code, inputs, filename, funcname)
     
