@@ -25,11 +25,17 @@ def _func_writer(code, input, filename, funcname, indent, i):
 
     func = getattr(__import__(filename), funcname) # 테스트할 function import
 
-    func_ans = func(*input) # original function answer / update 필요: func_ans의 결과가 error인 경우
+    try:
+        func_ans = func(*input) # original function answer / update 필요: func_ans의 결과가 error인 경우
 
-    code.write('{}def {}(self):\n'.format('\t'*indent, testname))
-    code.write('{}self.assertEqual({}{}, {})\n'.format('\t'*(indent+1), funcname, func_input, func_ans))
-    code.write('\n')
+        code.write('{}def {}(self):\n'.format('\t'*indent, testname))
+        code.write('{}self.assertEqual({}{}, {})\n'.format('\t'*(indent+1), funcname, func_input, func_ans))
+        code.write('\n')
+    except:
+        code.write('{}def {}(self):\n'.format('\t' * indent, testname))
+        code.write('{}with self.assertRaises(Exception):\n'.format('\t' * (indent + 1)))
+        code.write('{}{}{}\n'.format('\t' * (indent + 2), funcname, func_input))
+        code.write('\n')
 
 
 def _class_writer(code, inputs, filename, funcname):
@@ -53,4 +59,4 @@ def unittest_generator(filename, funcname, inputs):
 
 
 if __name__== "__main__":
-    unittest_generator('calculator', 'mul', [(1,2), (4,4)])
+    unittest_generator('calculator', 'mul', [(1,2), (3,0)])
