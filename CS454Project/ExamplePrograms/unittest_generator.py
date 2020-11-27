@@ -9,6 +9,8 @@ ex) unittest_generator('calculator', 'mul', [(1,2), (4,4)]) -> unittest.py 생�
 
 '''
 
+from importlib import import_module
+
 
 def _import_line_writer(code, filename, funcname):
     code.write('from {} import {}\n'.format(filename, funcname))
@@ -23,7 +25,7 @@ def _func_writer(code, input, filename, funcname, indent, i):
     testname = 'test{}'.format(i) # test unit 이름
     func_input = str(tuple(input)) # function input for passing into str format
 
-    func = getattr(__import__(filename), funcname) # 테스트할 function import
+    func = getattr(import_module(filename), funcname) # 테스트할 function import
 
     try:
         func_ans = func(*input) # original function answer / update 필요: func_ans의 결과가 error인 경우
