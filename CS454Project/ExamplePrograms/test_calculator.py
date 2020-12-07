@@ -1,7 +1,7 @@
 from unittest import TestCase
-from calculator import mul
+from quicksort import quicksort
 
 class CalculatorTest(TestCase):
 
-    def test_mul(self):
-        self.assertEqual(mul(2, 2), 4)
+    def test1(self):
+        self.assertEqual(quicksort([1, 6, 4, 3, 6, 7, 10]), [1, 3, 4, 6, 6, 7, 10])

@@ -17,7 +17,7 @@ def main():
 
     for opt, arg in opts:
         if (opt == '-p'):
-            pga = True
+            pga = arg
         elif (opt == '-m'):
             mutation_rate = float(arg)
         elif (opt == '-f'):
@@ -32,11 +32,11 @@ def main():
         new_population.append(eval(parameter))
     population = new_population
 
-    if pga:
-        best_input, best_value, fitness_step, running_time = PGA.main(population, mutation_rate, fun_name, n, m, k)
+    if pga == "True":
+        best_input, best_value, fitness_step, total_population_size, running_time = PGA.main(population, mutation_rate, fun_name, 2, 1, 30) # n, m, k hyperparamter
     else:
-        best_input, best_value, fitness_step, running_time = GA.main(population, mutation_rate, fun_name)
-    print(best_input, best_value, fitness_step, running_time)
+        best_input, best_value, fitness_step, total_population_size, running_time = GA.main(population, mutation_rate, fun_name)
+    print(best_input, best_value, fitness_step, total_population_size, running_time)
 
 if __name__ == '__main__':
     main()
