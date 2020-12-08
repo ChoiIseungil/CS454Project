@@ -3,9 +3,12 @@ from importlib import import_module
 
 def get_mutants(name):
     mutants = []
+    mutants_number = 0
     for file in os.listdir("Mutants/" + name):
         if file.startswith(name):
-            mutants.append(getattr(import_module("{}.{}".format("Mutants." + name, file.split('.')[0])), name))
+            mutants_number += 1
+    for i in range(mutants_number):
+        mutants.append(getattr(import_module("{}.{}".format("Mutants." + name, name + str(i))), name))
     return mutants
 
 def calc_mutation_score(mutants, inputs):
@@ -32,7 +35,6 @@ def calc_mutation_score(mutants, inputs):
         else:
             mut_surv += 1
         mut_num += 1
-
     return mut_kill / mut_num
 
 def get_mutation_score(name, inputs):
