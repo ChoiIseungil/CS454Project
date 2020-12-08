@@ -3,9 +3,9 @@ def knapsack(capacity, items):
     memo = defaultdict(int)
 
     for i in range(1, len(items) + 1):
-        if (i == len(items))
+        if (i == len(items)):
             weight, value = items[0]
-        else
+        else:
             weight, value = items[i]
 
         for j in range(1, capacity + 1):

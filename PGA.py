@@ -43,7 +43,7 @@ def pga(population, mutation_rate, fun_name, n, m, k, fitness_step):
         for index, population in enumerate(generation):
             fitnesses_result = fitnesses_results[index]
             for i in range(n):
-                new_population = step(population, fitnesses_result, population_size, mutation_rate)
+                new_population = step(population, fitnesses_result, population_size, fun_name, mutation_rate)
                 new_generation.append(new_population)
             for i in range(m):
                 generation_index = list(range(0, len(generation)))
@@ -52,7 +52,7 @@ def pga(population, mutation_rate, fun_name, n, m, k, fitness_step):
                 fitnesses_result_, fitness_step = fitnesses(population_, best_value, fun_name, fitness_step)
                 fitnesses_result += fitnesses_result_
                 population = population + population_
-                new_population = step(population, fitnesses_result, population_size, mutation_rate)
+                new_population = step(population, fitnesses_result, population_size, fun_name, mutation_rate)
                 new_generation.append(new_population)
         generation, fitnesses_results, best_input, best_value, fitness_step = processing(new_generation, best_input, best_value, fun_name, k, fitness_step)
         total_population_size += len(generation) * population_size
