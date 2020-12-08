@@ -24,8 +24,8 @@ def fitnesses(population, best_value, fun_name, fitness_step):
         if temp_value > best_value:
             best_value = temp_value
         fitness_step += 1
-        if fitness_step % 100 == 0:
-            print('fitness step = {}, best_value = {}'.format(fitness_step, best_value))
+        # if fitness_step % 100 == 0:
+        #     print('fitness step = {}, best_value = {}'.format(fitness_step, best_value))
     return result, fitness_step
 
 def mutation(parameter, mutation_rate):
@@ -43,7 +43,6 @@ def mutation(parameter, mutation_rate):
 
 def step(population, fitnesses_result, population_size, mutation_rate):
     numbers = len(population[0])
-    input_size = len(population[0][0])
     indexes = list(range(0, len(population)))
     roulette = softmax(fitnesses_result)
     new_population = []
@@ -75,6 +74,8 @@ def ga(population, mutation_rate, fun_name, fitness_step):
         if fitnesses_result[best_index] > best_value:
             best_value = fitnesses_result[best_index]
             best_input = population[best_index]
+        if total_population_size % 10 == 0:
+            print('population size = {}, best_value = {}'.format(total_population_size, best_value))
         if best_value >= 1.0:
             return best_input, best_value, fitness_step, total_population_size
         generation_step += 1

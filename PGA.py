@@ -56,6 +56,8 @@ def pga(population, mutation_rate, fun_name, n, m, k, fitness_step):
                 new_generation.append(new_population)
         generation, fitnesses_results, best_input, best_value, fitness_step = processing(new_generation, best_input, best_value, fun_name, k, fitness_step)
         total_population_size += len(generation) * population_size
+        if total_population_size % 10 == 0:
+            print('population size = {}, best_value = {}'.format(total_population_size, best_value))
         if best_value >= 1.0:
             return best_input, best_value, fitness_step, total_population_size
         generation_step += 1
