@@ -34,8 +34,8 @@ def pga(population, mutation_rate, fun_name, n, m, k, fitness_step):
     best_index = fitnesses_result.index(max(fitnesses_result))
     best_value = fitnesses_result[best_index]
     best_input = population[best_index]
-    if best_value >= 100:
-        return best_input, best_value, fitness_step
+    if best_value >= 1.0:
+        return best_input, best_value, fitness_step, total_population_size
     generation = [population]
     fitnesses_results = [fitnesses_result]
     while generation_step < 10:
@@ -56,8 +56,8 @@ def pga(population, mutation_rate, fun_name, n, m, k, fitness_step):
                 new_generation.append(new_population)
         generation, fitnesses_results, best_input, best_value, fitness_step = processing(new_generation, best_input, best_value, fun_name, k, fitness_step)
         total_population_size += len(generation) * population_size
-        if best_value >= 100:
-            return best_input, best_value, fitness_step 
+        if best_value >= 1.0:
+            return best_input, best_value, fitness_step, total_population_size
         generation_step += 1
     return best_input, best_value, fitness_step, total_population_size
 

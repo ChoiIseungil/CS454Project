@@ -1,14 +1,12 @@
 import math
 from numpy import random
-from ExamplePrograms.unittest_generator import unittest_generator
 import time
 from collections.abc import Iterable
+from Mutants.mutating_tester import get_mutation_score
 
 def fitness(sequence, fun_name):
     # todo
-    mutation_score = 0
-    for input_ in sequence:
-        mutation_score += max(input_)
+    mutation_score = get_mutation_score(fun_name, sequence)
     return mutation_score
 
 def softmax(lst):
@@ -67,7 +65,7 @@ def ga(population, mutation_rate, fun_name, fitness_step):
     best_index = fitnesses_result.index(max(fitnesses_result))
     best_value = fitnesses_result[best_index]
     best_input = population[best_index]
-    if best_value >= 100:
+    if best_value >= 1.0:
         return best_input, best_value, fitness_step, total_population_size
     while generation_step < 25:
         population = step(population, fitnesses_result, population_size, mutation_rate)
@@ -77,7 +75,7 @@ def ga(population, mutation_rate, fun_name, fitness_step):
         if fitnesses_result[best_index] > best_value:
             best_value = fitnesses_result[best_index]
             best_input = population[best_index]
-        if best_value >= 100:
+        if best_value >= 1.0:
             return best_input, best_value, fitness_step, total_population_size
         generation_step += 1
     return best_input, best_value, fitness_step, total_population_size
