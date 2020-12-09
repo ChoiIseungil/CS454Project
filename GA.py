@@ -9,12 +9,10 @@ def fitness(sequence, fun_name):
     mutation_score = get_mutation_score(fun_name, sequence)
     return mutation_score
 
-def exp(x):
-    return e ** x
 
 def softmax(lst):
     result = []
-    lst = list(map(exp, lst))
+    lst = list(map(math.exp, lst))
     sigma = sum(lst)
     for value in lst:
         result.append(value/sigma)
