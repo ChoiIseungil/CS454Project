@@ -1,50 +1,49 @@
 import math
 from numpy import random
-from mutpy import commandline
-from ExamplePrograms.unittest_generator import unittest_generator
 import time
 from collections.abc import Iterable
+from Mutants.mutating_tester import get_mutation_score
+from tester import Tester
 
-def fitness(sequence, fun_name):    
-    unittest_generator('ExamplePrograms.' + fun_name, fun_name, sequence) # filename 수정
-    mutation_score = commandline.main('ExamplePrograms.' + fun_name, 'test_calculator')
-    return mutation_score
+def fitness(sequence, arg_num, max_value, condition_range, error_rate):
+    tester = Tester()
+    tester.reset(argnum=arg_num, max_value=max_value, condition_range=condition_range, error_rate=error_rate, correction_range=[])
+    result = tester.run(sequence)
+    res = result[0][0]
+    return res
 
 def softmax(lst):
     result = []
+    lst = list(map(math.exp, lst))
     sigma = sum(lst)
     for value in lst:
         result.append(value/sigma)
     return result
 
-def fitnesses(population, best_value, fun_name, fitness_step):
+def fitnesses(population, best_value, arg_num, max_value, condition_range, error_rate, fitness_step):
     result = []
     for sequence in population:
-        temp_value = fitness(sequence, fun_name)
+        temp_value = fitness(sequence, arg_num, max_value, condition_range, error_rate)
         result.append(temp_value)
         if temp_value > best_value:
             best_value = temp_value
         fitness_step += 1
-        if fitness_step % 100 == 0:
-            print('fitness step = {}, best_value = {}'.format(fitness_step, best_value))
     return result, fitness_step
 
 def mutation(parameter, mutation_rate):
     if isinstance(parameter, Iterable):
         result = []
         for i in parameter:
-            result.append(mutation(i))
+            result.append(mutation(i, mutation_rate))
     else:
         if random.random() < mutation_rate:
-            result = random.randint() #constraints
+            result = random.randint(0, 20)
         else:
             result = parameter
     return result
 
-
 def step(population, fitnesses_result, population_size, mutation_rate):
     numbers = len(population[0])
-    input_size = len(population[0][0])
     indexes = list(range(0, len(population)))
     roulette = softmax(fitnesses_result)
     new_population = []
@@ -57,30 +56,34 @@ def step(population, fitnesses_result, population_size, mutation_rate):
         new_population.append(offspring)
     return new_population    
 
-def ga(population, mutation_rate, fun_name, fitness_step):
-    step = 0
+def ga(population, mutation_rate, arg_num, max_value, condition_range, error_rate, fitness_step):
+    generation_step = 0
     best_value = 0
     population_size = len(population)
-    fitnesses_result, fitness_step = fitnesses(population, best_value, fun_name, fitness_step)
+    total_population_size = population_size
+    fitnesses_result, fitness_step = fitnesses(population, best_value, arg_num, max_value, condition_range, error_rate, fitness_step)
     best_index = fitnesses_result.index(max(fitnesses_result))
     best_value = fitnesses_result[best_index]
     best_input = population[best_index]
-    if best_value >= 100:
-        return best_input, best_value, fitness_step
-    while step < 25:
-        new_population = step(population, fitnesses_result, population_size, mutation_rate)
-        fitnesses_result, fitness_step = fitnesses(population, best_value, fun_name, fitness_step)
+    if best_value >= 1.0:
+        return best_input, best_value, fitness_step, total_population_size
+    while generation_step < 25000:
+        population = step(population, fitnesses_result, population_size, mutation_rate)
+        total_population_size += population_size
+        fitnesses_result, fitness_step = fitnesses(population, best_value, arg_num, max_value, condition_range, error_rate, fitness_step)
         best_index = fitnesses_result.index(max(fitnesses_result))
         if fitnesses_result[best_index] > best_value:
             best_value = fitnesses_result[best_index]
             best_input = population[best_index]
-        if best_value >= 100:
-            return best_input, best_value, fitness_step
-        step += 1 
-    return best_input, best_value, fitness_step
+        if total_population_size % 10 == 0:
+            print('population size = {}, best_value = {}'.format(total_population_size, best_value))
+        if best_value >= 1.0:
+            return best_input, best_value, fitness_step, total_population_size
+        generation_step += 1
+    return best_input, best_value, fitness_step, total_population_size
 
-def main(population, mutation_rate, fun_name):
+def main(population, mutation_rate, arg_num, max_value, condition_range, error_rate):
     start = time.time()
-    best_input, best_value, fitness_step = ga(population, mutation_rate, fun_name, 0)
+    best_input, best_value, fitness_step, total_population_size= ga(population, mutation_rate, arg_num, max_value, condition_range, error_rate, 0)
     running_time = time.time() - start
-    return best_input, best_value, fitness_step, running_time
+    return best_input, best_value, fitness_step, total_population_size, running_time
