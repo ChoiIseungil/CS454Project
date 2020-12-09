@@ -3,6 +3,7 @@ import getopt
 import csv
 import GA
 import PGA
+import random
 
 
 def main():
@@ -31,6 +32,17 @@ def main():
     for parameter in population:
         new_population.append(eval(parameter))
     population = new_population
+
+    population = []
+    for _ in range(10):
+        sequence = []
+        for _ in range(5):
+            gene = []
+            for _ in range(3):
+                gene.append(random.randint(0,20))
+            sequence.append(gene)
+        population.append(sequence)
+
 
     if pga == "True":
         best_input, best_value, fitness_step, total_population_size, running_time = PGA.main(population, mutation_rate, fun_name, 2, 1, 30) # n, m, k hyperparamter

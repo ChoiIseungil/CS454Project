@@ -3,17 +3,26 @@ from numpy import random
 import time
 from collections.abc import Iterable
 from Mutants.mutating_tester import get_mutation_score
+from tester import Tester
 
 def fitness(sequence, fun_name):
     # todo
-    mutation_score = get_mutation_score(fun_name, sequence)
-    return mutation_score
+    tester = Tester()
+    tester.reset(argnum=3, max_value=20, condition_range=5, error_rate=0.3, correction_range=[])
+    result = tester.run(sequence)
+    res = result[0][0]
+    # mutation_score = get_mutation_score(fun_name, sequence)
+    return res
 
 def softmax(lst):
     result = []
     sigma = sum(lst)
-    for value in lst:
-        result.append(value/sigma)
+    if sigma == 0:
+        for _ in range(len(lst)):
+            result.append(1/len(lst))
+    else:
+        for value in lst:
+            result.append(value/sigma)
     return result
 
 def fitnesses(population, best_value, fun_name, fitness_step):
@@ -24,8 +33,8 @@ def fitnesses(population, best_value, fun_name, fitness_step):
         if temp_value > best_value:
             best_value = temp_value
         fitness_step += 1
-        # if fitness_step % 100 == 0:
-        #     print('fitness step = {}, best_value = {}'.format(fitness_step, best_value))
+        if fitness_step % 100 == 0:
+            print('fitness step = {}, best_value = {}'.format(fitness_step, best_value))
     return result, fitness_step
 
 def mutation(parameter, fun_name, mutation_rate):
@@ -114,7 +123,7 @@ def ga(population, mutation_rate, fun_name, fitness_step):
     best_input = population[best_index]
     if best_value >= 1.0:
         return best_input, best_value, fitness_step, total_population_size
-    while generation_step < 25:
+    while generation_step < 25000:
         population = step(population, fitnesses_result, population_size, fun_name, mutation_rate)
         total_population_size += population_size
         fitnesses_result, fitness_step = fitnesses(population, best_value, fun_name, fitness_step)

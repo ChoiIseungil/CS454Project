@@ -38,7 +38,7 @@ def pga(population, mutation_rate, fun_name, n, m, k, fitness_step):
         return best_input, best_value, fitness_step, total_population_size
     generation = [population]
     fitnesses_results = [fitnesses_result]
-    while generation_step < 10:
+    while generation_step < 2500:
         new_generation = []
         for index, population in enumerate(generation):
             fitnesses_result = fitnesses_results[index]
