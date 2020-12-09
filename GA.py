@@ -2,7 +2,6 @@ import math
 from numpy import random
 import time
 from collections.abc import Iterable
-from Mutants.mutating_tester import get_mutation_score
 from tester import Tester
 
 def fitness(sequence, arg_num, max_value, condition_range, error_rate):
