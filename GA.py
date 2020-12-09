@@ -6,7 +6,6 @@ from Mutants.mutating_tester import get_mutation_score
 from tester import Tester
 
 def fitness(sequence, fun_name):
-    # todo
     tester = Tester()
     tester.reset(argnum=3, max_value=20, condition_range=5, error_rate=0.3, correction_range=[])
     result = tester.run(sequence)
@@ -16,13 +15,10 @@ def fitness(sequence, fun_name):
 
 def softmax(lst):
     result = []
+    lst = list(map(math.exp, lst))
     sigma = sum(lst)
-    if sigma == 0:
-        for _ in range(len(lst)):
-            result.append(1/len(lst))
-    else:
-        for value in lst:
-            result.append(value/sigma)
+    for value in lst:
+        result.append(value/sigma)
     return result
 
 def fitnesses(population, best_value, fun_name, fitness_step):
@@ -38,64 +34,74 @@ def fitnesses(population, best_value, fun_name, fitness_step):
     return result, fitness_step
 
 def mutation(parameter, fun_name, mutation_rate):
-    if fun_name == "get_factors" or fun_name == "quicksort":
-        if isinstance(parameter, Iterable):
-            result = []
-            for i in parameter:
-                result.append(mutation(i, fun_name, mutation_rate))
+    if isinstance(parameter, Iterable):
+        result = []
+        for i in parameter:
+            result.append(mutation(i, fun_name, mutation_rate))
+    else:
+        if random.random() < mutation_rate:
+            result = random.randint(0, 100)
         else:
-            if fun_name == "get_factors":
-                if random.random() < mutation_rate:
-                    result = random.randint(0, 10000) # constraints for get_factors
-                else:
-                    result = parameter
-            else:
-                if random.random() < mutation_rate:
-                    result = random.randint(0, 100) # constraints for quicksort
-                else:
-                    result = parameter
-    elif fun_name == "hanoi":
-        result = []
-        for input_pair in parameter:
-            mutated_input = []
-            for i in range(3):
-                if random.random() < mutation_rate:
-                    # constraints for hanoi
-                    if i == 0:
-                        mutated_input.append(random.randint(0, 20))
-                    elif i == 1:
-                        mutated_input.append(random.randint(1, 3))
-                    elif i == 2:
-                        mutated_input.append(random.randint(1, 3))
-                        while mutated_input[1] == mutated_input[2]:
-                            mutated_input[2] = random.randint(1, 3)
-                    # constraints for hanoi
-                else:
-                    mutated_input.append(input_pair[i])
-            result.append(mutated_input)
-    elif fun_name == "knapsack": # constraints for knapsack
-        result = []
-        for input_pair in parameter:
-            mutated_input = []
-            if random.random() < mutation_rate:
-                mutated_input.append(random.randint(0, 100))
-            else:
-                mutated_input.append(input_pair[0])
-            items = []
-            for item in input_pair[1]:
-                mutated_item = []
-                if random.random() < mutation_rate:
-                    mutated_item.append(random.randint(0, 100))
-                else:
-                    mutated_item.append(input_pair[0])
-                if random.random() < mutation_rate:
-                    mutated_item.append(random.randint(0, 10))
-                else:
-                    mutated_item.append(input_pair[0])
-                items.append(mutated_item)
-            mutated_input.append(items)
-            result.append(mutated_input)
+            result = parameter
     return result
+    # if fun_name == "get_factors" or fun_name == "quicksort":
+    #     if isinstance(parameter, Iterable):
+    #         result = []
+    #         for i in parameter:
+    #             result.append(mutation(i, fun_name, mutation_rate))
+    #     else:
+    #         if fun_name == "get_factors":
+    #             if random.random() < mutation_rate:
+    #                 result = random.randint(0, 10000) # constraints for get_factors
+    #             else:
+    #                 result = parameter
+    #         else:
+    #             if random.random() < mutation_rate:
+    #                 result = random.randint(0, 100) # constraints for quicksort
+    #             else:
+    #                 result = parameter
+    # elif fun_name == "hanoi":
+    #     result = []
+    #     for input_pair in parameter:
+    #         mutated_input = []
+    #         for i in range(3):
+    #             if random.random() < mutation_rate:
+    #                 # constraints for hanoi
+    #                 if i == 0:
+    #                     mutated_input.append(random.randint(0, 20))
+    #                 elif i == 1:
+    #                     mutated_input.append(random.randint(1, 3))
+    #                 elif i == 2:
+    #                     mutated_input.append(random.randint(1, 3))
+    #                     while mutated_input[1] == mutated_input[2]:
+    #                         mutated_input[2] = random.randint(1, 3)
+    #                 # constraints for hanoi
+    #             else:
+    #                 mutated_input.append(input_pair[i])
+    #         result.append(mutated_input)
+    # elif fun_name == "knapsack": # constraints for knapsack
+    #     result = []
+    #     for input_pair in parameter:
+    #         mutated_input = []
+    #         if random.random() < mutation_rate:
+    #             mutated_input.append(random.randint(0, 100))
+    #         else:
+    #             mutated_input.append(input_pair[0])
+    #         items = []
+    #         for item in input_pair[1]:
+    #             mutated_item = []
+    #             if random.random() < mutation_rate:
+    #                 mutated_item.append(random.randint(0, 100))
+    #             else:
+    #                 mutated_item.append(input_pair[0])
+    #             if random.random() < mutation_rate:
+    #                 mutated_item.append(random.randint(0, 10))
+    #             else:
+    #                 mutated_item.append(input_pair[0])
+    #             items.append(mutated_item)
+    #         mutated_input.append(items)
+    #         result.append(mutated_input)
+    # return result
 
 
 def step(population, fitnesses_result, population_size, fun_name, mutation_rate):
