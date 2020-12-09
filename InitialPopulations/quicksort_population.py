@@ -1,7 +1,7 @@
 import csv
 import random
 
-f = open('hanoi_population.csv', 'w')
+f = open('quicksort_population.csv', 'w')
 wr = csv.writer(f)
 
 populations = []
