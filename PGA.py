@@ -2,6 +2,7 @@ import math
 from numpy import random
 from GA import fitnesses, step
 import time
+import csv
 
 def processing(generation, best_input, best_value, arg_num, max_value, condition_range, error_rate, k, fitness_step):
     fitnesses_results = []
@@ -26,6 +27,8 @@ def processing(generation, best_input, best_value, arg_num, max_value, condition
     return generation, fitnesses_results, best_input, best_value, fitness_step
 
 def pga(population, mutation_rate, arg_num, max_value, condition_range, error_rate, n, m, k, fitness_step):
+    f = open('result.csv', 'w')
+    wr = csv.writer(f)
     generation_step = 0
     best_value = 0
     population_size = len(population)
@@ -35,10 +38,11 @@ def pga(population, mutation_rate, arg_num, max_value, condition_range, error_ra
     best_value = fitnesses_result[best_index]
     best_input = population[best_index]
     if best_value >= 1.0:
+        f.close()
         return best_input, best_value, fitness_step, total_population_size
     generation = [population]
     fitnesses_results = [fitnesses_result]
-    while generation_step < 2500:
+    while total_population_size <= 10000:
         new_generation = []
         for index, population in enumerate(generation):
             fitnesses_result = fitnesses_results[index]
@@ -58,9 +62,12 @@ def pga(population, mutation_rate, arg_num, max_value, condition_range, error_ra
         total_population_size += len(generation) * population_size
         if total_population_size % 10 == 0:
             print('population size = {}, best_value = {}'.format(total_population_size, best_value))
+            wr.writerow([total_population_size, best_value])
         if best_value >= 1.0:
+            f.close()
             return best_input, best_value, fitness_step, total_population_size
         generation_step += 1
+    f.close()
     return best_input, best_value, fitness_step, total_population_size
 
 def main(population, mutation_rate, arg_num, max_value, condition_range, error_rate, n, m, k):
