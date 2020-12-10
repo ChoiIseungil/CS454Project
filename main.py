@@ -50,7 +50,7 @@ def main():
 
 
     if pga == "True":
-        best_input, best_value, fitness_step, total_population_size, running_time = PGA.main(population, mutation_rate, arg_num, max_value, condition_range, error_rate, 2, 1, 30) # n, m, k hyperparamter
+        best_input, best_value, fitness_step, total_population_size, running_time = PGA.main(population, mutation_rate, arg_num, max_value, condition_range, error_rate, 3, 1, 20) # n, m, k hyperparamter
     else:
         best_input, best_value, fitness_step, total_population_size, running_time = GA.main(population, mutation_rate, arg_num, max_value, condition_range, error_rate)
     print(best_value, fitness_step, total_population_size, running_time)

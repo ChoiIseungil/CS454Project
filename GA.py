@@ -62,7 +62,7 @@ def ga(population, mutation_rate, arg_num, max_value, condition_range, error_rat
     generation_step = 0
     best_value = 0
     population_size = len(population)
-    total_population_size = population_size
+    total_population_size = 0
     fitnesses_result, fitness_step = fitnesses(population, best_value, arg_num, max_value, condition_range, error_rate, fitness_step)
     best_index = fitnesses_result.index(max(fitnesses_result))
     best_value = fitnesses_result[best_index]
@@ -78,7 +78,7 @@ def ga(population, mutation_rate, arg_num, max_value, condition_range, error_rat
         if fitnesses_result[best_index] > best_value:
             best_value = fitnesses_result[best_index]
             best_input = population[best_index]
-        if total_population_size % 10 == 0:
+        if total_population_size % 200 == 0:
             print('population size = {}, best_value = {}'.format(total_population_size, best_value))
             wr.writerow([total_population_size, best_value])
         if best_value >= 1.0:
