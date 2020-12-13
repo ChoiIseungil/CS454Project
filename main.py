@@ -18,7 +18,7 @@ def main():
 
     pga = "False"
     mutation_rate = 0.05
-    arg_num = 3
+    arg_num = 5
     max_value = 20
     condition_range = 5
     error_rate = 0.3

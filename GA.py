@@ -57,6 +57,7 @@ def step(population, fitnesses_result, population_size, mutation_rate):
     return new_population    
 
 def ga(population, mutation_rate, arg_num, max_value, condition_range, error_rate, fitness_step):
+    start = time.time()
     f = open('result.csv', 'w')
     wr = csv.writer(f)
     generation_step = 0
@@ -70,7 +71,7 @@ def ga(population, mutation_rate, arg_num, max_value, condition_range, error_rat
     if best_value >= 1.0:
         f.close()
         return best_input, best_value, fitness_step, total_population_size
-    while total_population_size <= 10000:
+    while time.time() - start <= 400:
         population = step(population, fitnesses_result, population_size, mutation_rate)
         total_population_size += population_size
         fitnesses_result, fitness_step = fitnesses(population, best_value, arg_num, max_value, condition_range, error_rate, fitness_step)
@@ -80,7 +81,8 @@ def ga(population, mutation_rate, arg_num, max_value, condition_range, error_rat
             best_input = population[best_index]
         if total_population_size % 200 == 0:
             print('population size = {}, best_value = {}'.format(total_population_size, best_value))
-            wr.writerow([total_population_size, best_value])
+            # wr.writerow([total_population_size, best_value])
+        wr.writerow([time.time() - start, best_value])
         if best_value >= 1.0:
             f.close()
             return best_input, best_value, fitness_step, total_population_size
