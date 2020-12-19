@@ -3,12 +3,11 @@ from numpy import random
 import time
 from collections.abc import Iterable
 from Mutants.mutating_tester import get_mutation_score
-from tester import Tester
 
-def fitness(sequence, fun_name):
-    tester = Tester()
-    tester.reset(argnum=3, max_value=20, condition_range=5, error_rate=0.3, correction_range=[])
-    result = tester.run(sequence)
+def fitness(sequence, fun_name, evaluator):
+    # tester = Tester(argnum=3, max_value=20, condition_range=5, error_rate=0.3, correction_range=[])
+    # tester.reset(argnum=3, max_value=20, condition_range=5, error_rate=0.3, correction_range=[])
+    result = evaluator.run(sequence)
     res = result[0][0]
     # mutation_score = get_mutation_score(fun_name, sequence)
     return res
@@ -21,10 +20,10 @@ def softmax(lst):
         result.append(value/sigma)
     return result
 
-def fitnesses(population, best_value, fun_name, fitness_step):
+def fitnesses(population, best_value, fun_name, fitness_step, evaluator):
     result = []
     for sequence in population:
-        temp_value = fitness(sequence, fun_name)
+        temp_value = fitness(sequence, fun_name, evaluator)
         result.append(temp_value)
         if temp_value > best_value:
             best_value = temp_value
@@ -118,12 +117,12 @@ def step(population, fitnesses_result, population_size, fun_name, mutation_rate)
         new_population.append(offspring)
     return new_population    
 
-def ga(population, mutation_rate, fun_name, fitness_step):
+def ga(population, mutation_rate, fun_name, fitness_step, evaluator):
     generation_step = 0
     best_value = 0
     population_size = len(population)
     total_population_size = population_size
-    fitnesses_result, fitness_step = fitnesses(population, best_value, fun_name, fitness_step)
+    fitnesses_result, fitness_step = fitnesses(population, best_value, fun_name, fitness_step, evaluator)
     best_index = fitnesses_result.index(max(fitnesses_result))
     best_value = fitnesses_result[best_index]
     best_input = population[best_index]
@@ -132,7 +131,7 @@ def ga(population, mutation_rate, fun_name, fitness_step):
     while generation_step < 25000:
         population = step(population, fitnesses_result, population_size, fun_name, mutation_rate)
         total_population_size += population_size
-        fitnesses_result, fitness_step = fitnesses(population, best_value, fun_name, fitness_step)
+        fitnesses_result, fitness_step = fitnesses(population, best_value, fun_name, fitness_step, evaluator)
         best_index = fitnesses_result.index(max(fitnesses_result))
         if fitnesses_result[best_index] > best_value:
             best_value = fitnesses_result[best_index]
@@ -144,8 +143,8 @@ def ga(population, mutation_rate, fun_name, fitness_step):
         generation_step += 1
     return best_input, best_value, fitness_step, total_population_size
 
-def main(population, mutation_rate, fun_name):
+def main(population, mutation_rate, fun_name, evaluator):
     start = time.time()
-    best_input, best_value, fitness_step, total_population_size= ga(population, mutation_rate, fun_name, 0)
+    best_input, best_value, fitness_step, total_population_size= ga(population, mutation_rate, fun_name, 0, evaluator)
     running_time = time.time() - start
     return best_input, best_value, fitness_step, total_population_size, running_time
