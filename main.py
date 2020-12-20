@@ -50,7 +50,11 @@ def main():
         population.append(sequence)
     
     evaluator = Tester()
+
+    #without correction range
     # evaluator.reset(argnum=arg_num, max_value=max_value, condition_range=condition_range, error_rate=error_rate, correction_range=[])
+    
+    #with correction range
     evaluator.reset(argnum=arg_num, max_value=max_value, condition_range=condition_range, error_rate=error_rate, correction_range = [[(0, range(0,3), 0.7), (1, range(0,3), 0.7), (2, range(0,3), 0.7)] ,[(0, range(3,6), 0.7), (1, range(3,6), 0.7), (2, range(3,6), 0.7)] ,[(0, range(6,9), 0.7), (1, range(6,9), 0.7), (2, range(6,9), 0.7)]])
 
     if pga == "True":
