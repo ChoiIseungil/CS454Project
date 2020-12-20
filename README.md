@@ -2,10 +2,6 @@
 
 KAIST 2020 Fall CS454 Artificial Intelligence Based Software Engineering
 
-# Style-Preserving Image Translation from Korean to English
-
-KAIST 2020 Fall CS470 Introduction to Artificial Intelligence
-
 Authorized [Jongchan Park](https://github.com/KAIST-JongchanPark)
 
 Authorized [Jungyeon Jeon](https://github.com/Minguinho99)
