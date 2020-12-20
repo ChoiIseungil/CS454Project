@@ -4,6 +4,7 @@ import csv
 import GA
 import PGA
 import random
+from tester import Tester
 
 
 def main():
@@ -47,12 +48,15 @@ def main():
                 gene.append(random.randint(0,max_value))
             sequence.append(gene)
         population.append(sequence)
-
+    
+    evaluator = Tester()
+    # evaluator.reset(argnum=arg_num, max_value=max_value, condition_range=condition_range, error_rate=error_rate, correction_range=[])
+    evaluator.reset(argnum=arg_num, max_value=max_value, condition_range=condition_range, error_rate=error_rate, correction_range = [[(0, range(0,3), 0.7), (1, range(0,3), 0.7), (2, range(0,3), 0.7)] ,[(0, range(3,6), 0.7), (1, range(3,6), 0.7), (2, range(3,6), 0.7)] ,[(0, range(6,9), 0.7), (1, range(6,9), 0.7), (2, range(6,9), 0.7)]])
 
     if pga == "True":
-        best_input, best_value, fitness_step, total_population_size, running_time = PGA.main(population, mutation_rate, arg_num, max_value, condition_range, error_rate, 3, 1, 20) # n, m, k hyperparamter
+        best_input, best_value, fitness_step, total_population_size, running_time = PGA.main(population = population, mutation_rate = mutation_rate, evaluator = evaluator, n = 3, m = 1, k = 20) # n, m, k hyperparamter
     else:
-        best_input, best_value, fitness_step, total_population_size, running_time = GA.main(population, mutation_rate, arg_num, max_value, condition_range, error_rate)
+        best_input, best_value, fitness_step, total_population_size, running_time = GA.main(population = population, mutation_rate = mutation_rate, evaluator = evaluator)
     print(best_value, fitness_step, total_population_size, running_time)
 
 if __name__ == '__main__':

@@ -4,10 +4,10 @@ from GA import fitnesses, step
 import time
 import csv
 
-def processing(generation, best_input, best_value, arg_num, max_value, condition_range, error_rate, k, fitness_step):
+def processing(generation, best_input, best_value, evaluator, k, fitness_step):
     fitnesses_results = []
     for population in generation:
-        fitnesses_result, fitness_step = fitnesses(population, best_value, arg_num, max_value, condition_range, error_rate, fitness_step)
+        fitnesses_result, fitness_step = fitnesses(population, best_value, evaluator, fitness_step)
         fitnesses_results.append(fitnesses_result)
     max_fitnesses_results = list(map(max ,fitnesses_results))
     sorted_index = sorted(range(len(max_fitnesses_results)), key=max_fitnesses_results.__getitem__)
@@ -26,7 +26,7 @@ def processing(generation, best_input, best_value, arg_num, max_value, condition
         generation = new_generation
     return generation, fitnesses_results, best_input, best_value, fitness_step
 
-def pga(population, mutation_rate, arg_num, max_value, condition_range, error_rate, n, m, k, fitness_step):
+def pga(population, mutation_rate, evaluator, n, m, k, fitness_step):
     start = time.time()
     f = open('result.csv', 'w')
     wr = csv.writer(f)
@@ -34,7 +34,7 @@ def pga(population, mutation_rate, arg_num, max_value, condition_range, error_ra
     best_value = 0
     population_size = len(population)
     total_population_size = 0
-    fitnesses_result, fitness_step = fitnesses(population, best_value, arg_num, max_value, condition_range, error_rate, fitness_step)
+    fitnesses_result, fitness_step = fitnesses(population, best_value, evaluator, fitness_step)
     best_index = fitnesses_result.index(max(fitnesses_result))
     best_value = fitnesses_result[best_index]
     best_input = population[best_index]
@@ -43,7 +43,8 @@ def pga(population, mutation_rate, arg_num, max_value, condition_range, error_ra
         return best_input, best_value, fitness_step, total_population_size
     generation = [population]
     fitnesses_results = [fitnesses_result]
-    while time.time() - start <= 300:
+    while time.time() - start <= 400:
+    # while population_size <= 80000:
         new_generation = []
         for index, population in enumerate(generation):
             fitnesses_result = fitnesses_results[index]
@@ -54,12 +55,12 @@ def pga(population, mutation_rate, arg_num, max_value, condition_range, error_ra
                 generation_index = list(range(0, len(generation)))
                 crossover_population_index = random.choice(generation_index)
                 population_ = generation[crossover_population_index]
-                fitnesses_result_, fitness_step = fitnesses(population, best_value, arg_num, max_value, condition_range, error_rate, fitness_step)
+                fitnesses_result_, fitness_step = fitnesses(population, best_value, evaluator, fitness_step)
                 fitnesses_result += fitnesses_result_
                 population = population + population_
                 new_population = step(population, fitnesses_result, population_size, mutation_rate)
                 new_generation.append(new_population)
-        generation, fitnesses_results, best_input, best_value, fitness_step = processing(new_generation, best_input, best_value, arg_num, max_value, condition_range, error_rate, k, fitness_step)
+        generation, fitnesses_results, best_input, best_value, fitness_step = processing(new_generation, best_input, best_value, evaluator, k, fitness_step)
         total_population_size += len(generation) * population_size
         if total_population_size % 200 == 0:
             print('population size = {}, best_value = {}'.format(total_population_size, best_value))
@@ -72,8 +73,8 @@ def pga(population, mutation_rate, arg_num, max_value, condition_range, error_ra
     f.close()
     return best_input, best_value, fitness_step, total_population_size
 
-def main(population, mutation_rate, arg_num, max_value, condition_range, error_rate, n, m, k):
+def main(population, mutation_rate, evaluator, n, m, k):
     start = time.time()
-    best_input, best_value, fitness_step, total_population_size = pga(population, mutation_rate, arg_num, max_value, condition_range, error_rate, n, m, k, 0)
+    best_input, best_value, fitness_step, total_population_size = pga(population, mutation_rate, evaluator, n, m, k, 0)
     running_time = time.time() - start
     return best_input, best_value, fitness_step, total_population_size, running_time
