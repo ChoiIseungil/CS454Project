@@ -13,7 +13,7 @@ Authorized [Seungil Lee](https://github.com/ChoiIseungil)
 -----------
 
 ## Introduction
-Test data is necessary for debugging, but test data generation is time-consuming and annoying process. We want to generate test data automatically using Parallel Genetic Algorithm.
+Generating testdata is necessary for debugging, but test data generation is time-consuming and annoying process. We tried to generate test data automatically using parallel genetic algorithm.
 
 Test Data Generation Using Parallel Genetic Algorithm(report link)
 
@@ -23,19 +23,21 @@ Genetic Algorithm (GA) is a search heuristic that is inspired by Charles Darwinâ
 
 <img src="image/ga.png" height="150px"></img>
 
-By crossover and mutation, GA can explore larger search region than Hill Climbing or Simulating Annealing. Nevertheless, GA has some disadvantages in local optima.
+GA can explore larger search region thanks to crossover and mutation. Nevertheless, GA has some disadvantages alike other search-based algorithms: it has a tendency to converge to local optima.
 
-To overcome the weakness, we suggest PGA that has tree-like architecture.
+To overcome the weakness, we introduce new variant of genetica algorith,, which we named parallel genetic algorithm (PGA). It has a tree-like architecture.
 
 <img src="image/pga.png" height="300px"></img>
 
+This is pseudocode of PGA.
+
 <img src="image/parallel.png" width="300px"></img>
 
-From line 10 to 15 perform GA parallel n times.
+Line 10 to 15 : perform GA parallel n times.
 
 <img src="image/inter-crossover.png" width="300px"></img>
 
-From line 16 to 22 perform inter-crossover, so each population can share information with others.
+Line 16 to 22 : perform inter-crossover, so each population can share information with others.
 
 <img src="image/pruning.png" width="300px"></img>
 
