@@ -41,6 +41,24 @@ From line 16 to 22 perform inter-crossover, so each population can share informa
 
 For memory and calcuation time, we limit the max number of populations in one generation as k. Pruning pick best k populations among one generation.
 
+## Evaluators
+
+# Usage
+
+1. Generate instance of evaluator
+
+        evaluator = Tester.instance()
+
+2. Condition initialize
+
+        evaluator.reset(argnum, max_value, condition_range, error_rate, correction_range)
+        
+  There are 5 arguments to control error conditions. You can see detail explanation in [code](https://github.com/ChoiIseungil/CS454Project/blob/main/tester.py#L19).
+
+3. Run experiment
+
+        evaluator.run(input)
+
 ## Results
 
 For experiment, we use tester from [genetic_CIT](https://github.com/jeong0982/genetic_CIT).  We experiment the performance of PGA compared to GA in terms of population size and time. We run PGA and GA until 80,000 population size, and 400 seconds. We execute 5 times and show the average for experiments about population size, and one time for experiments about time. Also, experiment tester without correction range and test with a correction range; error region 0 to 3 in 70% for parameter 0 to 2, error region 3 to 6 in 70% for parameter 0 to 2, and error region 6 to 9 in 70% for parameter 0 to 2.
