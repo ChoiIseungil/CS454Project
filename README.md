@@ -25,8 +25,17 @@ Test data is necessary for debugging, but test data generation is time-consuming
 
 Genetic Algorithm (GA) is a search heuristic that is inspired by Charles Darwin’s theory of natural evolution. 
 
+<img src="image/ga.png" height="150px"></img>
+
+By crossover and mutation, GA can explore larger search region than Hill Climbing or Simulating Annealing. Nevertheless, GA has some disadvantages in local optima.
+
+To overcome the weakness, we suggest PGA.
+
+<img src="image/pga.png" height="300px"></img>
+
+
+
 ## Results
-<img src="Results/네온사인.jpg" height="300px"></img>
 
 # Usage
 
@@ -70,11 +79,5 @@ arguments when running program
 -r: error_rate for tester (default = 0.3)
 
 ## References
-* [SynthText](https://github.com/ankush-me/SynthText): Used to synthesize background image and text to generate train dataset
-
-* [EasyOCR](https://github.com/JaidedAI/EasyOCR): Recoginze Korean text and its bounding box in the image 
-
-* [SRNet](https://github.com/Niwhskal/SRNet): The twin discriminator generative adversarial network that can edit text in any image while maintaining context of the background, font style and color
-
-* [Google Clound Translation](https://cloud.google.com/translate/?hl=ko) : API to translate Korean to English
+* 
 
