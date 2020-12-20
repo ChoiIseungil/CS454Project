@@ -41,7 +41,7 @@ From line 16 to 22 perform inter-crossover, so each population can share informa
 
 For memory and calcuation time, we limit the max number of populations in one generation as k. Pruning pick best k populations among one generation.
 
-## Evaluators
+## Evaluator
 
 # Usage
 
@@ -53,7 +53,7 @@ For memory and calcuation time, we limit the max number of populations in one ge
 
         evaluator.reset(argnum, max_value, condition_range, error_rate, correction_range)
         
-  There are 5 arguments to control error conditions. You can see detail explanation in [code](https://github.com/ChoiIseungil/CS454Project/blob/main/tester.py#L19).
+  There are 5 arguments to control error conditions. You can see the detail explanation in [code](https://github.com/ChoiIseungil/CS454Project/blob/main/tester.py#L19).
 
 3. Run experiment
 
