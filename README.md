@@ -25,7 +25,7 @@ Genetic Algorithm (GA) is a search heuristic that is inspired by Charles Darwinâ
 
 By crossover and mutation, GA can explore larger search region than Hill Climbing or Simulating Annealing. Nevertheless, GA has some disadvantages in local optima.
 
-To overcome the weakness, we suggest PGA.
+To overcome the weakness, we suggest PGA that has tree-like architecture.
 
 <img src="image/pga.png" height="300px"></img>
 
