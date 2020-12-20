@@ -25,7 +25,7 @@ Genetic Algorithm (GA) is a search heuristic that is inspired by Charles Darwinâ
 
 GA can explore larger search region thanks to crossover and mutation. Nevertheless, GA has some disadvantages alike other search-based algorithms: it has a tendency to converge to local optima.
 
-To overcome the weakness, we introduce new variant of genetica algorith,, which we named parallel genetic algorithm (PGA). It has a tree-like architecture.
+To overcome the weakness, we introduce new variant of genetica algorithm, which we named parallel genetic algorithm (PGA). It has a tree-like architecture.
 
 <img src="image/pga.png" height="300px"></img>
 
