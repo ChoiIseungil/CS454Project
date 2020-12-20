@@ -15,7 +15,7 @@ Authorized [Seungil Lee](https://github.com/ChoiIseungil)
 ## Introduction
 Test data is necessary for debugging, but test data generation is time-consuming and annoying process. We want to generate test data automatically using Parallel Genetic Algorithm.
 
-[Test Data Generation Using Parallel Genetic Algorithm]()
+Test Data Generation Using Parallel Genetic Algorithm(report link)
 
 ## Genetic algorithm and Parallel Genetice Algorithm
 
