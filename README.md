@@ -1,6 +1,6 @@
 # Test Data Generation Using Parallel Genetic Algorithm
 
-KAIST 2020 Fall CS470 Artificial Intelligence Based Software Engineering
+KAIST 2020 Fall CS454 Artificial Intelligence Based Software Engineering
 
 # Style-Preserving Image Translation from Korean to English
 
