@@ -61,7 +61,7 @@ For memory and calcuation time, we limit the max number of populations in one ge
 
 ## Results
 
-For experiment, we use tester from [genetic_CIT](https://github.com/jeong0982/genetic_CIT).  We experiment the performance of PGA compared to GA in terms of population size and time. We run PGA and GA until 80,000 population size, and 400 seconds. We execute 5 times and show the average for experiments about population size, and one time for experiments about time. Also, experiment tester without correction range and test with a correction range; error region 0 to 3 in 70% for parameter 0 to 2, error region 3 to 6 in 70% for parameter 0 to 2, and error region 6 to 9 in 70% for parameter 0 to 2.
+For experiment, we use evaluator from [genetic_CIT](https://github.com/jeong0982/genetic_CIT).  We experiment the performance of PGA compared to GA in terms of population size and time. We run PGA and GA until 80,000 population size, and 400 seconds. We execute 5 times and show the average for experiments about population size, and one time for experiments about time. Also, experiment evaluator without correction range and evaluator with a correction range; error region 0 to 3 in 70% for parameter 0 to 2, error region 3 to 6 in 70% for parameter 0 to 2, and error region 6 to 9 in 70% for parameter 0 to 2.
 
 Result graph ..
 
@@ -76,7 +76,7 @@ We implement both GA and PGA to compare the performance.
 
 * Experiment environments:
 
-[correction range for tester](https://github.com/ChoiIseungil/CS454Project/blob/main/main.py#L54)
+[correction range for evaluator](https://github.com/ChoiIseungil/CS454Project/blob/main/main.py#L54)
 
 [Quit option for GA](https://github.com/ChoiIseungil/CS454Project/blob/main/GA.py#L71)
 
@@ -98,13 +98,13 @@ arguments when running program
 
 -m: mutation rate (default = 0.05)
 
--n: arg_num for tester (default = 5)
+-n: arg_num for evaluator (default = 5)
 
--l: max_value for tester (default = 20)
+-l: max_value for evaluator (default = 20)
 
--c: condition_range for tester (default = 5)
+-c: condition_range for evaluator (default = 5)
 
--r: error_rate for tester (default = 0.3)
+-r: error_rate for evaluator (default = 0.3)
 
 ## References
 * [genetic_CIT](https://github.com/jeong0982/genetic_CIT)
