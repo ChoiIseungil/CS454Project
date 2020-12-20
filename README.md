@@ -29,9 +29,23 @@ To overcome the weakness, we suggest PGA that has tree-like architecture.
 
 <img src="image/pga.png" height="300px"></img>
 
+<img src="image/parallel.png" width="300px"></img>
 
+From line 10 to 15 perform GA parallel n times.
+
+<img src="image/inter-crossover.png" width="300px"></img>
+
+From line 16 to 22 perform inter-crossover, so each population can share information with others.
+
+<img src="image/pruning.png" width="300px"></img>
+
+For memory and calcuation time, we limit the max number of populations in one generation as k. Pruning pick best k populations among one generation.
 
 ## Results
+
+For experiment, we use tester from [genetic_CIT](https://github.com/jeong0982/genetic_CIT).  We experiment the performance of PGA compared to GA in terms of population size and time. We run PGA and GA until 80,000 population size, and 400 seconds. We execute 5 times and show the average for experiments about population size, and one time for experiments about time. Also, experiment tester without correction range and test with a correction range; error region 0 to 3 in 70% for parameter 0 to 2, error region 3 to 6 in 70% for parameter 0 to 2, and error region 6 to 9 in 70% for parameter 0 to 2.
+
+Result graph ..
 
 # Usage
 
@@ -75,5 +89,5 @@ arguments when running program
 -r: error_rate for tester (default = 0.3)
 
 ## References
-* 
+* [genetic_CIT](https://github.com/jeong0982/genetic_CIT)
 
