@@ -96,17 +96,17 @@ We implement both GA and PGA to compare the performance.
 
 arguments when running program
 
--p: "True" for PGA and "False" for GA (default = "False")
+* -p: "True" for PGA and "False" for GA (default = "False")
 
--m: mutation rate (default = 0.05)
+* -m: mutation rate (default = 0.05)
 
--n: arg_num for evaluator (default = 5)
+* -n: arg_num for evaluator (default = 5)
 
--l: max_value for evaluator (default = 20)
+* -l: max_value for evaluator (default = 20)
 
--c: condition_range for evaluator (default = 5)
+* -c: condition_range for evaluator (default = 5)
 
--r: error_rate for evaluator (default = 0.3)
+* -r: error_rate for evaluator (default = 0.3)
 
 ## References
 * [genetic_CIT](https://github.com/jeong0982/genetic_CIT)
