@@ -43,8 +43,8 @@ def pga(population, mutation_rate, evaluator, n, m, k, fitness_step):
         return best_input, best_value, fitness_step, total_population_size
     generation = [population]
     fitnesses_results = [fitnesses_result]
-    # while time.time() - start <= 400:
-    while population_size <= 80000:
+    while time.time() - start <= 400:
+#     while population_size <= 80000:
         new_generation = []
         for index, population in enumerate(generation):
             fitnesses_result = fitnesses_results[index]
@@ -64,8 +64,8 @@ def pga(population, mutation_rate, evaluator, n, m, k, fitness_step):
         total_population_size += len(generation) * population_size
         if total_population_size % 200 == 0:
             print('population size = {}, best_value = {}'.format(total_population_size, best_value))
-            wr.writerow([total_population_size, best_value])
-        # wr.writerow([time.time() - start, best_value])
+#             wr.writerow([total_population_size, best_value])
+        wr.writerow([time.time() - start, best_value])
         if best_value >= 1.0:
             f.close()
             return best_input, best_value, fitness_step, total_population_size
