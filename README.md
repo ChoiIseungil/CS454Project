@@ -15,7 +15,7 @@ Authorized [Seungil Lee](https://github.com/ChoiIseungil)
 ## Introduction
 Generating testdata is necessary for debugging, but test data generation is time-consuming and annoying process. We tried to generate test data automatically using parallel genetic algorithm.
 
-Test Data Generation Using Parallel Genetic Algorithm(report link)
+[Test Data Generation Using Parallel Genetic Algorithm](https://drive.google.com/file/d/1wa-8IfiBoEU_I8xtpDS1OyFuhoWZ87X0/view?usp=sharing)
 
 ## Genetic algorithm and Parallel Genetice Algorithm
 
@@ -65,7 +65,15 @@ For memory and calcuation time, we limit the max number of populations in one ge
 
 For experiment, we use evaluator from [genetic_CIT](https://github.com/jeong0982/genetic_CIT).  We experiment the performance of PGA compared to GA in terms of population size and time. We run PGA and GA until 80,000 population size, and 400 seconds. We execute 5 times and show the average for experiments about population size, and one time for experiments about time. Also, experiment evaluator without correction range and evaluator with a correction range; error region 0 to 3 in 70% for parameter 0 to 2, error region 3 to 6 in 70% for parameter 0 to 2, and error region 6 to 9 in 70% for parameter 0 to 2.
 
-Result graph ..
+<img src="Results/populationw.png" height="250px"></img>
+<img src="Results/populationwo.png" height="250px"></img>
+
+These are results in terms of population size. Left one is with correction range, and right one is without.
+
+<img src="Results/timew.png" height="250px"></img>
+<img src="Results/timewo.png" height="250px"></img>
+
+These are results in terms of elapsed time. Also, Left one is with correction range, and right one is without.
 
 # Usage
 
